@@ -20,7 +20,12 @@
 
 /* _____________ 你的代码 _____________ */
 
-type TupleToObject<T extends readonly any[]> = any
+// type TupleToObject<T extends readonly any[]> = {
+//   [P in T[number]]: P
+// }
+type TupleToObject<T extends readonly PropertyKey[]> = {
+  [P in T[number]]: P
+}
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
@@ -33,6 +38,7 @@ const tupleSymbol = [sym1, sym2] as const
 const tupleMix = [1, '2', 3, '4', sym1] as const
 
 type cases = [
+  // 右边传入对象值，但会被 Equal 解析为类型。
   Expect<Equal<TupleToObject<typeof tuple>, { 'tesla': 'tesla', 'model 3': 'model 3', 'model X': 'model X', 'model Y': 'model Y' }>>,
   Expect<Equal<TupleToObject<typeof tupleNumber>, { 1: 1, 2: 2, 3: 3, 4: 4 }>>,
   Expect<Equal<TupleToObject<typeof tupleSymbol>, { [sym1]: typeof sym1, [sym2]: typeof sym2 }>>,
