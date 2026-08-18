@@ -28,7 +28,7 @@
 
 /* _____________ 你的代码 _____________ */
 
-type HelloWorld = any // expected to be a string
+type HelloWorld = string // 我好牛逼
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect, NotAny } from '@type-challenges/utils'
