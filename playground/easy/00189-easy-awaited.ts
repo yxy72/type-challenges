@@ -22,8 +22,17 @@
 
 /* _____________ 你的代码 _____________ */
 
-type MyAwaited<T> = any
+// type MyAwaited<T> = T extends Promise<infer R> ? R : never; // 无法解决嵌套
+// type MyAwaited<T> = T extends Promise<infer R> ? MyAwaited<R> : never; // wznb，但直接写感觉很难写出来，一步一步写好写一些
+// type MyAwaited<T> = T extends {
+//   then: (onfulfilled: (arg: infer R) => {}) => {} // 通用 Promise 形式
+// } ? MyAwaited<R> : T
 
+// 继续考虑 T 的限制
+type MyAwaited<T extends { then: (...args: any[]) => any }> = T extends {
+  then: (onfulfilled: (arg: infer R) => {}) => {} // 通用 Promise 形式
+} ? ( R extends { then: (...args: any[]) => any } ? MyAwaited<R> : R ) 
+  : never // 像狗屎，还是不考虑 T 的 extends 吧 T^T
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 

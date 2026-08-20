@@ -32,7 +32,7 @@ type Equal<X, Y> =
 > 1. 联合类型 `Equal<'a'|'b', 'a'>` 等价于 `Equal<'a','a'> | Equal<'b','a'>`，而 ts 中 `true|false` -> `boolean`
 > 2. `never` **没有任何成员**，甚至不会进入外层的 `x extends Y`
 
-### TS 常见关键字
+### Easy
 - `keyof` : 获取某个对象的 **所有属性名** 并组成 **联合类型**
     ```ts
     type User = {
@@ -64,4 +64,17 @@ type Equal<X, Y> =
 - `infer` : 占位 / 类型推断
     ```TS
     // type First<T extends any[]> = T extends [infer R , ...unknown[]] ? R : never
+    ```
+
+- 类型对象属性
+    ```TS
+    type T = readonly ['a', 'b', 'c']
+    type L = T['length'] // 3 - 字面量类型
+    type L = string[]['length'] // number
+    ```
+- 联合类型和 never
+    ```TS
+    'a' | never | 'b'
+    // 等价于
+    'a' | 'b'
     ```

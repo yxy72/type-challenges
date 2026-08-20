@@ -19,7 +19,7 @@
 
 /* _____________ 你的代码 _____________ */
 
-type If<C, T, F> = any
+type If<C extends Boolean, T, F> = C extends true ? T : F // 爽
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

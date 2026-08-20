@@ -20,7 +20,7 @@
 
 /* _____________ 你的代码 _____________ */
 
-type MyExclude<T, U> = any
+type MyExclude<T, U> = T extends U ? never : T // 联合类型是依次遍历所有值，never 会被联合类型干掉
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
