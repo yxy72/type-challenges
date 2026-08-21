@@ -78,3 +78,10 @@ type Equal<X, Y> =
     // 等价于
     'a' | 'b'
     ```
+
+- 参数元组 [arg1: string, arg2: number]
+    ```TS
+    T extends (...args: infer P) => any
+    // (arg1: string, arg2: number) => void
+    // P => [arg1: string, arg2: number]
+    ```

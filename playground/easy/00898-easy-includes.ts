@@ -16,12 +16,16 @@
   > 在 Github 上查看：https://tsch.js.org/898/zh-CN
 */
 
+import type { Equal, Expect } from '@type-challenges/utils'
+
 /* _____________ 你的代码 _____________ */
 
-type Includes<T extends readonly any[], U> = any
+type Includes<T extends readonly any[], U> =
+  T extends [infer F, ...infer R] ?
+    Equal<U, F> extends true ?
+      true : Includes<R, U> : false
 
 /* _____________ 测试用例 _____________ */
-import type { Equal, Expect } from '@type-challenges/utils'
 
 type cases = [
   Expect<Equal<Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Kars'>, true>>,
